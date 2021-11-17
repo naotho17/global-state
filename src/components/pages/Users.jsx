@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+// import { UserContext } from "../../providers/UserProvider";
+import { SecondaryButton } from "../atoms/button/SecondaryButton";
+// Recoilの中の値を参照する場合useRecoilStateをimport
+import { useRecoilState } from "recoil";
 
 import { SearchInput } from "../molecules/SearchInput";
 import { UserCard } from "../organisms/user/UserCard";
-import { SecondaryButton } from "../atoms/button/SecondaryButton";
-import { UserContext } from "../../providers/UserProvider";
+import { userState } from "../../store/userState";
 
 // ダミーの配列を10個作ってる
 const users = [...Array(10).keys()].map((val) => {
@@ -23,7 +25,9 @@ const users = [...Array(10).keys()].map((val) => {
 });
 
 export const Users = () => {
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  // const { userInfo, setUserInfo } = useContext(UserContext);
+  const [userInfo, setUserInfo] = useRecoilState(userState);
+
   const onclickSwitch = () => setUserInfo({ isAdmin: !userInfo.isAdmin });
 
   return (

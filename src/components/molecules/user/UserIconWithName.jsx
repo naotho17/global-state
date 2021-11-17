@@ -1,10 +1,17 @@
-import React, { useContext, memo } from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
-import { UserContext } from "../../../providers/UserProvider";
+// グローバルなstateの値を参照することだけしかしない場合は”useRecoilValue”
+import { useRecoilValue } from "recoil";
+
+// import { UserContext } from "../../../providers/UserProvider";
+import { userState } from "../../../store/userState";
 
 export const UserIconWithName = memo((props) => {
   const { image, name } = props;
-  const { userInfo } = useContext(UserContext);
+  // const { userInfo } = useContext(UserContext);
+  const userInfo = useRecoilValue(userState);
+
+  // userInfoがtrueのときは"userInfo.isAdmin"という値にする。
   const isAdmin = userInfo ? userInfo.isAdmin : false;
 
   return (
